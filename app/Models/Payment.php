@@ -9,4 +9,11 @@ class Payment extends Model
 {
     /** @use HasFactory<\Database\Factories\PaymentFactory> */
     use HasFactory;
+
+    protected $fillable = ['amount'];
+
+    public function payments()
+    {
+        return $this->belongsTo(Payment::class);
+    }
 }
