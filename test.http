@@ -1,0 +1,32 @@
+POST http://account_payments_api.test/api/accounts/ HTTP/1.1
+content-type: application/json
+
+{
+}
+
+
+
+###
+
+GET http://account_payments_api.test/api/accounts/ HTTP/1.1
+
+
+###
+
+GET http://account_payments_api.test/api/accounts/1 HTTP/1.1
+
+###
+
+DELETE http://account_payments_api.test/api/accounts/2 HTTP/1.1
+
+
+####
+
+POST http://account_payments_api.test/api/payments/ HTTP/1.1
+content-type: application/json
+
+[]
+
+###
+
+GET http://account_payments_api.test/api/payments/ HTTP/1.1

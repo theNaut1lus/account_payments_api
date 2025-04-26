@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
-use App\Http\Requests\StoreAccountRequest;
-use App\Http\Requests\UpdateAccountRequest;
+use Illuminate\Http\Request;
+
+// use App\Http\Requests\StoreAccountRequest;
+// use App\Http\Requests\UpdateAccountRequest;
 
 class AccountController extends Controller
 {
@@ -13,7 +15,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        $accounts = Account::latest()->get();
+
+        return $accounts;
     }
 
     /**
@@ -27,9 +31,16 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAccountRequest $request)
+    public function store(Request $request)
     {
-        //
+        //make validation work for an empty body sent in the post request
+        $request->validate([]);
+
+        //create an empty account,incremented id and null payments
+        $account = Account::create([]);
+
+        //return the account object, this will auto-convert it to json.
+        return $account;
     }
 
     /**
@@ -37,7 +48,7 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        //
+        return $account;
     }
 
     /**
@@ -45,15 +56,15 @@ class AccountController extends Controller
      */
     public function edit(Account $account)
     {
-        //
+        // 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAccountRequest $request, Account $account)
+    public function update(Request $request, Account $account)
     {
-        //
+        //nothing to update on accounts
     }
 
     /**
@@ -61,6 +72,6 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        //
+        return $account->delete();
     }
 }

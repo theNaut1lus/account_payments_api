@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Payment::class);
+            $table->foreignIdFor(Payment::class)->nullable();
             $table->timestamps();
         });
     }
