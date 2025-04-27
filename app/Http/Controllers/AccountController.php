@@ -26,7 +26,9 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         //make validation work for an empty body sent in the post request
-        $request->validate([]);
+        if (!empty($request->all())) {
+            return response("Non-empty body needed to create an account", 400);
+        }
 
         //create an empty account,incremented id and null payments
         $account = Account::create([]);
