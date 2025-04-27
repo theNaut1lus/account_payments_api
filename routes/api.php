@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,4 +11,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('accounts', AccountController::class);
 
-Route::resource('payments', AccountController::class);
+Route::resource('payments', PaymentController::class);

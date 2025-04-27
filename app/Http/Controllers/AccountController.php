@@ -15,17 +15,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = Account::latest()->get();
+        $accounts = Account::withSum('payments', 'amount')->get();
 
         return $accounts;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -48,15 +40,10 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        return $account;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Account $account)
-    {
-        // 
+        return [
+            'id' => $account->id,
+            'billed' => $account->payments()->sum('amount')
+        ];
     }
 
     /**

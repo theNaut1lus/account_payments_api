@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\Payment;
-use App\Http\Requests\StorePaymentRequest;
-use App\Http\Requests\UpdatePaymentRequest;
+use Illuminate\Http\Request;
+// use App\Http\Requests\StorePaymentRequest;
+// use App\Http\Requests\UpdatePaymentRequest;
 
 class PaymentController extends Controller
 {
@@ -13,7 +15,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        return Payment::latest()->get();
     }
 
     /**
@@ -27,9 +29,27 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePaymentRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'amount' => 'integer',
+            'account_id' => 'exists:accounts,id'
+        ]);
+
+        $account = Account::find($validated["account_id"]);
+
+        $payment = Payment::create([
+            'amount' => $validated["amount"],
+            'account_id' => $account->id
+        ]);
+
+
+        $payment->account()->associate($account);
+        $payment->save();
+
+
+        return $payment;
     }
 
     /**
@@ -37,7 +57,7 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
+        return $payment;
     }
 
     /**
@@ -51,7 +71,7 @@ class PaymentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePaymentRequest $request, Payment $payment)
+    public function update(Request $request, Payment $payment)
     {
         //
     }
@@ -61,6 +81,6 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
-        //
+        return $payment->delete();
     }
 }

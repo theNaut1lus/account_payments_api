@@ -10,10 +10,10 @@ class Payment extends Model
     /** @use HasFactory<\Database\Factories\PaymentFactory> */
     use HasFactory;
 
-    protected $fillable = ['amount'];
+    protected $fillable = ['amount', 'account_id'];
 
-    public function payments()
+    public function account()
     {
-        return $this->belongsTo(Payment::class);
+        return $this->belongsTo(Account::class)->withDefault();
     }
 }
